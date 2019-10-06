@@ -22,6 +22,16 @@ mongoose.connect('mongodb+srv://omnistack:omnistack@cluster0-0gotz.mongodb.net/o
     useUnifiedTopology:true
 })
 
+mongoose.connection.on('connected', function () {
+ 	console.log('===== Conexão estabelecida com sucesso =====');
+});
+mongoose.connection.on('error', function (err) {
+ 	console.log('===== Ocorreu um erro: ' + err);
+});
+mongoose.connection.on('disconnected', function () {
+ 	console.log('===== Conexão finalizada =====');
+});
+
 app.use((req, res, next) => {
 	req.io = io
 	req.connectedUsers = connectedUsers
